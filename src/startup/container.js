@@ -5,15 +5,16 @@ const config = require('../config');
 const server = require('./');
 
 //repositories
+const { UserRepository } = require('../repositories');
 
 //services
-const { HomeService } = require('../services');
+const { HomeService, UserService } = require('../services');
 
 //controllers
-const { HomeController } = require('../controllers');
+const { HomeController, UserController } = require('../controllers');
 
 //routes
-const { HomeRoutes } = require('../routes/index.routes');
+const { HomeRoutes, UserRoutes } = require('../routes/index.routes');
 const Routes = require('../routes');
 
 //db
@@ -29,13 +30,19 @@ container
     db: asValue(db),
   })
   .register({
+    UserRepository: asClass(UserRepository).singleton(),
+  })
+  .register({
     HomeService: asClass(HomeService).singleton(),
+    UserService: asClass(UserService).singleton(),
   })
   .register({
     HomeController: asClass(HomeController.bind(HomeController)).singleton(),
+    UserController: asClass(UserController.bind(UserController)).singleton(),
   })
   .register({
     HomeRoutes: asFunction(HomeRoutes).singleton(),
+    UserRoutes: asFunction(UserRoutes).singleton(),
   });
 
 module.exports = container;

@@ -1,4 +1,5 @@
 module.exports = {
-  notFoundMiddleware: require('./not-found.middleware'),
-  errorMiddleware: require('./error.middleware'),
+  NotFoundMiddleware: require('./not-found.middleware'),
+  ErrorMiddleware: require('./error.middleware'),
+  ValidationsMiddleware: require('./validations.middleware'),
 };
