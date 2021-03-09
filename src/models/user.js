@@ -1,4 +1,7 @@
 const { Model } = require('sequelize');
+
+const { CoinTypes } = require('../common/');
+
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -28,6 +31,12 @@ module.exports = (sequelize, DataTypes) => {
       password: {
         allowNull: false,
         type: DataTypes.STRING,
+      },
+      coin: {
+        allowNull: false,
+        defaultValue: CoinTypes[1],
+        type: DataTypes.ENUM,
+        values: CoinTypes,
       },
     },
     {

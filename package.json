@@ -8,7 +8,8 @@
     "start:dev": "nodemon index.js",
     "db:init": "sequelize-cli init",
     "db:create": "sequelize-cli db:create",
-    "db:migrate": "sequelize-cli db:migrate",
+    "db:migrate:gen": "sequelize-cli migration:create --name",
+    "db:migrate": "sequelize-cli db:migrate:undo:all && sequelize-cli db:migrate",
     "db:revert": "sequelize-cli db:migrate:undo"
   },
   "repository": {
