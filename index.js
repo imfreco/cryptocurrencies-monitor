@@ -1,10 +1,11 @@
 const container = require('./src/startup/container');
 const server = container.resolve('server');
+const db = container.resolve('db');
 
 server
   .start()
   .then(async () => {
-    console.log('yeah');
+    await db.sequelize.sync();
   })
   .catch((err) => {
     console.log(err);

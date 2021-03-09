@@ -179,3 +179,4 @@ $ RECYCLE.BIN /
 
 # Fin de https://www.gitignore.io/api/node,linux,macos,windows
 node_modules
+docker
