@@ -1,0 +1,181 @@
+
+# Creado por https://www.gitignore.io/api/node,linux,macos,windows
+# Editar en https://www.gitignore.io/?templates=node,linux,macos,windows
+
+### Linux ###
+* ~
+
+# archivos temporales que se pueden crear si un proceso todavía tiene un identificador abierto de un archivo eliminado
+.fuse_hidden *
+
+# Preferencias de directorio de KDE
+.directorio
+
+# Carpeta de basura de Linux que puede aparecer en cualquier partición o disco
+.Basura-*
+
+Los archivos # .nfs se crean cuando se elimina un archivo abierto pero aún se accede a él
+.nfs *
+
+### Mac OS ###
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# El icono debe terminar con dos \ r
+Icono
+
+# Miniaturas
+._ *
+
+# Archivos que pueden aparecer en la raíz de un volumen
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+Artículos temporales
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directorios potencialmente creados en el recurso compartido AFP remoto
+.AppleDB
+.AppleDesktop
+Carpeta de basura de red
+Artículos temporales
+.apdisk
+
+### Nodo ###
+# Registros
+registros
+*.Iniciar sesión
+npm-debug.log *
+yarn-debug.log *
+yarn-error.log *
+lerna-debug.log *
+
+# Informes de diagnóstico (https://nodejs.org/api/report.html)
+informe. [0-9] *. [0-9] *. [0-9] *. [0-9] *. json
+
+# Datos de tiempo de ejecución
+pids
+* .pid
+*.semilla
+* .pid.lock
+
+# Directorio para bibliotecas instrumentadas generadas por jscoverage / JSCover
+lib-cov
+
+# Directorio de cobertura utilizado por herramientas como Estambul
+cobertura
+* .lcov
+
+# cobertura de prueba de Nueva York
+.nyc_output
+
+# Grunt almacenamiento intermedio (https://gruntjs.com/creating-plugins#storing-task-files)
+.gruñido
+
+# Directorio de dependencia de Bower (https://bower.io/)
+bower_components
+
+# configuración de nodo-waf
+.lock-wscript
+
+# Complementos binarios compilados (https://nodejs.org/api/addons.html)
+construir / liberar
+
+# Directorios de dependencias
+node_modules /
+jspm_packages /
+
+# TypeScript v1 archivos de declaración
+tipings /
+
+# Caché de TypeScript
+* .tsbuildinfo
+
+# Directorio opcional de caché npm
+.npm
+
+# Opcional eslint cache
+.eslintcache
+
+# Historial de REPL opcional
+.node_repl_history
+
+# Salida del 'paquete npm'
+* .tgz
+
+# Archivo de integridad de hilo
+.yarn-integridad
+
+# dotenv archivo de variables de entorno
+.env
+.env.test
+
+# caché de paquete de paquetes (https://parceljs.org/)
+.cache
+
+# next.js salida de compilación
+.siguiente
+
+# nuxt.js salida de compilación
+.nuxt
+
+# rollup.js salida de compilación predeterminada
+dist /
+
+# Descomenta la línea pública si tu proyecto usa Gatsby
+# https://nextjs.org/blog/next-9-1#public-directory-support
+# https://create-react-app.dev/docs/using-the-public-folder/#docsNav
+# public
+
+# Salidas de compilación de Storybook
+.fuera
+.storybook-out
+
+# salida de compilación vuepress
+.vuepress / dist
+
+# Directorios sin servidor
+.serverless /
+
+# FuseBox cache
+.caja de fusibles/
+
+# DynamoDB Archivos locales
+.dynamodb /
+
+# Carpetas temporales
+tmp /
+temperatura/
+
+### Windows ###
+# Windows archivos de caché en miniatura
+Thumbs.db
+Thumbs.db: encriptable
+ehthumbs.db
+ehthumbs_vista.db
+
+# Volcar archivo
+* .stackdump
+
+# Archivo de configuración de carpeta
+[Dd] esktop.ini
+
+# Papelera de reciclaje utilizada en recursos compartidos de archivos
+$ RECYCLE.BIN /
+
+# Archivos de Windows Installer
+*.taxi
+* .msi
+* .msix
+* .msm
+* .msp
+
+# Atajos de Windows
+* .lnk
+
+# Fin de https://www.gitignore.io/api/node,linux,macos,windows
+node_modules
