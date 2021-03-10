@@ -5,7 +5,7 @@ const config = require('../config');
 const server = require('./');
 
 //repositories
-const { UserRepository } = require('../repositories');
+const { UserRepository, CoinRepository } = require('../repositories');
 
 //services
 const { UserService, CoinService, AuthService } = require('../services');
@@ -39,6 +39,7 @@ container
   })
   .register({
     UserRepository: asClass(UserRepository).singleton(),
+    CoinRepository: asClass(CoinRepository).singleton(),
   })
   .register({
     UserService: asClass(UserService).singleton(),

@@ -3,6 +3,10 @@ class BaseRepository {
     this.model = model;
   }
 
+  async get(id) {
+    return await this.model.findOne({ where: { id } });
+  }
+
   async create(entity) {
     return await this.model.create(entity);
   }

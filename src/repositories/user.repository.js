@@ -8,10 +8,11 @@ class UserRepository extends BaseRepository {
   }
 
   async getByUsername(username) {
-    return await _user.findOne({
-      attributes: { exclude: ['createdAt', 'updatedAt'] },
-      where: { username },
-    });
+    return await _user.findOne({ where: { username } });
+  }
+
+  async getById(userId) {
+    return await _user.findOne({ where: { id: userId } });
   }
 }
 

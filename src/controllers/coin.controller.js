@@ -10,6 +10,12 @@ class CoinController {
     const coins = await _coinService.getAll(coin);
     return res.send(coins);
   }
+
+  async assignToUser(req, res) {
+    const { coinId, userId } = req.params;
+    const coin = await _coinService.assignToUser(coinId, userId);
+    return res.send(coin);
+  }
 }
 
 module.exports = CoinController;
