@@ -6,7 +6,8 @@ class CoinController {
   }
 
   async getAll(req, res) {
-    const coins = await _coinService.getAll();
+    const { coin } = res.locals.user;
+    const coins = await _coinService.getAll(coin);
     return res.send(coins);
   }
 }

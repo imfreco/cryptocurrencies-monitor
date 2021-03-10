@@ -1,4 +1,5 @@
-const { sign } = require('jsonwebtoken');
+const { sign, verify } = require('jsonwebtoken');
+
 const { JWT_SECRET } = require('../config');
 
 const expirationTimes = {
@@ -11,4 +12,8 @@ const signPayload = (payload, options) => {
   return sign(payload, JWT_SECRET, options);
 };
 
-module.exports = { expirationTimes, signPayload };
+const verifyToken = (token, callback) => {
+  verify(token, JWT_SECRET, callback);
+};
+
+module.exports = { expirationTimes, signPayload, verifyToken };

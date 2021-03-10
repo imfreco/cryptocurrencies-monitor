@@ -1,10 +1,11 @@
+const { VSCurrencyTypes } = require('../common');
 const { getCoins } = require('../providers/coin-gecko.provider');
 const { getSomeProperties } = require('../utils/objects.util');
 
 class CoinService {
   constructor() {}
 
-  async getAll() {
+  async getAll(coin) {
     const propsRequired = [
       'symbol',
       'current_price',
@@ -13,7 +14,8 @@ class CoinService {
       'last_updated',
     ];
 
-    const { data: coins } = await getCoins();
+    const vsCurrency = VSCurrencyTypes.find((type) => type.coin === coin);
+    const { data: coins } = await getCoins(vsCurrency.vs);
 
     return coins.map((coin) => getSomeProperties(propsRequired, coin));
   }
