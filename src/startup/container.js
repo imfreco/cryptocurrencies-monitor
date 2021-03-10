@@ -8,13 +8,21 @@ const server = require('./');
 const { UserRepository } = require('../repositories');
 
 //services
-const { UserService, CoinService } = require('../services');
+const { UserService, CoinService, AuthService } = require('../services');
 
 //controllers
-const { UserController, CoinController } = require('../controllers');
+const {
+  UserController,
+  CoinController,
+  AuthController,
+} = require('../controllers');
 
 //routes
-const { UserRoutes, CoinRoutes } = require('../routes/index.routes');
+const {
+  UserRoutes,
+  CoinRoutes,
+  AuthRoutes,
+} = require('../routes/index.routes');
 const Routes = require('../routes');
 
 //db
@@ -35,14 +43,17 @@ container
   .register({
     UserService: asClass(UserService).singleton(),
     CoinService: asClass(CoinService).singleton(),
+    AuthService: asClass(AuthService).singleton(),
   })
   .register({
     UserController: asClass(UserController.bind(UserController)).singleton(),
     CoinController: asClass(CoinController.bind(CoinController)).singleton(),
+    AuthController: asClass(AuthController.bind(AuthController)).singleton(),
   })
   .register({
     UserRoutes: asFunction(UserRoutes).singleton(),
     CoinRoutes: asFunction(CoinRoutes).singleton(),
+    AuthRoutes: asFunction(AuthRoutes).singleton(),
   });
 
 module.exports = container;

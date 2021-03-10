@@ -5,7 +5,7 @@ const helmet = require('helmet');
 const compression = require('compression');
 const { ErrorMiddleware, NotFoundMiddleware } = require('../middlewares');
 
-module.exports = function ({ UserRoutes, CoinRoutes }) {
+module.exports = function ({ UserRoutes, CoinRoutes, AuthRoutes }) {
   const router = express.Router();
   const apiRoutes = express.Router();
 
@@ -13,6 +13,7 @@ module.exports = function ({ UserRoutes, CoinRoutes }) {
 
   apiRoutes.use('/users', UserRoutes);
   apiRoutes.use('/coins', CoinRoutes);
+  apiRoutes.use('/auth', AuthRoutes);
 
   router.use('/v1/api', apiRoutes);
 

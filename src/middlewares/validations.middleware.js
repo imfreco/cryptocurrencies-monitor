@@ -1,12 +1,9 @@
 const { validationResult } = require('express-validator');
-const { errorHelper } = require('../helpers');
+const { ErrorHelper } = require('../helpers');
 
 module.exports = (req, res, next) => {
   const errors = validationResult(req);
 
-  if (errors.isEmpty()) {
-    next();
-  } else {
-    errorHelper(400, errors.mapped());
-  }
+  if (!errors.isEmpty()) ErrorHelper(400, errors.mapped());
+  else next();
 };

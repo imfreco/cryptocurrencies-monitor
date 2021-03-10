@@ -1,4 +1,5 @@
 const { Model } = require('sequelize');
+const { compareSync, genSaltSync, hashSync } = require('bcrypt');
 
 const { CoinTypes } = require('../common/');
 
@@ -44,5 +45,21 @@ module.exports = (sequelize, DataTypes) => {
       modelName: 'User',
     },
   );
+
+  User.beforeSave((user) => {
+    user.password = hashSync(user.password, genSaltSync(10));
+  });
+
+  User.prototype.toJSON = function () {
+    let user = { ...this.get() };
+
+    delete user.password;
+    return user;
+  };
+
+  User.prototype.isValidPassword = function (password) {
+    return compareSync(password, this.password);
+  };
+
   return User;
 };
