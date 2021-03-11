@@ -1,7 +1,11 @@
 const { Router } = require('express');
 
 const { CreateCoinToUserDto } = require('../dtos/coin.dto');
-const { AuthMiddleware, ValidationsMiddleware } = require('../middlewares');
+const {
+  AuthMiddleware,
+  ValidationsMiddleware,
+  OwnMiddleware,
+} = require('../middlewares');
 
 module.exports = function ({ CoinController }) {
   const router = Router();
@@ -10,7 +14,7 @@ module.exports = function ({ CoinController }) {
 
   router.post(
     '/:coinId/user/:userId',
-    [CreateCoinToUserDto, ValidationsMiddleware],
+    [AuthMiddleware, CreateCoinToUserDto, ValidationsMiddleware, OwnMiddleware],
     CoinController.assignToUser,
   );
 
