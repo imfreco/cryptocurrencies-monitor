@@ -16,7 +16,7 @@ class UserService extends BaseService {
     const user = await _userRepository.getById(userId);
 
     if (user) return true;
-    else ErrorHelper(400, 'No existe el usuario suministrado');
+    else ErrorHelper(404, 'No existe el usuario suministrado');
   }
 }
 

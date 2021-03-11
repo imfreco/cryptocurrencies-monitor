@@ -1,7 +1,7 @@
 const BaseService = require('./base.service');
 const { VSCurrencyTypes } = require('../common');
-const { getCoins, getCoin } = require('../providers/coin-gecko.provider');
 const { ErrorHelper } = require('../helpers');
+const { CryptoProvider } = require('../providers');
 const { getSomeProperties } = require('../utils/objects.util');
 
 let _userService = null,
@@ -24,7 +24,7 @@ class CoinService extends BaseService {
     ];
 
     const vsCurrency = VSCurrencyTypes.find((type) => type.coin === coin);
-    const { data: coins } = await getCoins(vsCurrency.vs);
+    const { data: coins } = await CryptoProvider.getCoins(vsCurrency.vs);
 
     return coins.map((coin) => getSomeProperties(propsRequired, coin));
   }
@@ -43,17 +43,45 @@ class CoinService extends BaseService {
 
     const foundCoin = coins.find(({ dataValues: { id } }) => id === coinId);
 
-    if (foundCoin) ErrorHelper(400, 'Esa criptomoneda ya la posee');
+    if (foundCoin) ErrorHelper(400, 'Esta criptomoneda ya ha sido agregada');
     else return false;
   }
 
   async existsCoin(coinId) {
     const {
       data: { error },
-    } = await getCoin(coinId);
+    } = await CryptoProvider.getCoin(coinId);
 
-    if (error) ErrorHelper(400, 'No existe la criptomenda suministrada');
+    if (error) ErrorHelper(404, 'No existe la criptomoneda suministrada');
     else return true;
+  }
+
+  async getTopCoinsByUser(userId, coin, limit, price = 'desc') {
+    const propsRequired = [
+      'symbol',
+      'current_price',
+      'name',
+      'image',
+      'last_updated',
+    ];
+
+    const existsUser = await _userService.existsUser(userId);
+
+    if (existsUser) {
+      let coinsByUser = await _coinRepository.getCoinsByUser(userId);
+
+      coinsByUser = coinsByUser.map(({ dataValues: { id } }) => id);
+
+      const vsCurrency = VSCurrencyTypes.find((type) => type.coin === coin);
+      let { data: coins } = await CryptoProvider.getCoins(
+        vsCurrency.vs,
+        coinsByUser,
+        price,
+      );
+
+      coins = coins.slice(0, limit);
+      return coins.map((coin) => getSomeProperties(propsRequired, coin));
+    }
   }
 }
 

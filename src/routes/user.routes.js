@@ -1,15 +1,26 @@
 const { Router } = require('express');
 
+const { ReadTopCoinDto } = require('../dtos/coin.dto');
 const { CreateUserDto } = require('../dtos/user.dto');
-const { ValidationsMiddleware } = require('../middlewares');
+const {
+  AuthMiddleware,
+  ValidationsMiddleware,
+  OwnMiddleware,
+} = require('../middlewares');
 
-module.exports = function ({ UserController }) {
+module.exports = function ({ UserController, CoinController }) {
   const router = Router();
 
   router.post(
     '',
     [CreateUserDto, ValidationsMiddleware],
     UserController.create,
+  );
+
+  router.get(
+    '/:userId/coins/top',
+    [AuthMiddleware, ReadTopCoinDto, ValidationsMiddleware, OwnMiddleware],
+    CoinController.getTopCoinsByUser,
   );
 
   return router;

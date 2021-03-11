@@ -16,6 +16,19 @@ class CoinController {
     const coin = await _coinService.assignToUser(coinId, userId);
     return res.send(coin);
   }
+
+  async getTopCoinsByUser(req, res) {
+    const { coin } = res.locals.user;
+    const { userId } = req.params;
+    const { limit, price } = req.query;
+    const topCoins = await _coinService.getTopCoinsByUser(
+      userId,
+      coin,
+      limit,
+      price,
+    );
+    return res.send(topCoins);
+  }
 }
 
 module.exports = CoinController;
