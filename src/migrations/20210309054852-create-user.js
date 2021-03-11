@@ -1,3 +1,5 @@
+const { CoinTypes } = require('../common');
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Users', {
@@ -23,6 +25,12 @@ module.exports = {
       password: {
         allowNull: false,
         type: Sequelize.STRING,
+      },
+      coin: {
+        allowNull: false,
+        defaultValue: CoinTypes[1],
+        type: Sequelize.ENUM,
+        values: CoinTypes,
       },
       createdAt: {
         allowNull: false,

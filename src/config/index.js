@@ -11,4 +11,12 @@ module.exports = {
     port: process.env.DB_PORT,
     dialect: 'postgres',
   },
+  test: {
+    username: process.env.DBTEST_USER,
+    password: process.env.DBTEST_PASS,
+    database: process.env.DBTEST_NAME,
+    host: process.env.DBTEST_HOST,
+    port: process.env.DBTEST_PORT,
+    dialect: 'mysql',
+  },
 };

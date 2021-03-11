@@ -1,7 +1,7 @@
 version: '3.1'
 
 services:
-  db:
+  postgres:
     image: postgres
     restart: always
     environment:
@@ -12,3 +12,16 @@ services:
       - ${DB_PORT}:${DB_PORT_IN}
     volumes:
       - ${DB_VOLUME_PATH}:/var/lib/postgresql/data
+  mysql:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DBTEST_PASS}
+      MYSQL_USER: ${DBTEST_USER}
+      MYSQL_PASSWORD: ${DBTEST_PASS}
+      MYSQL_DATABASE: ${DBTEST_NAME}
+    ports:
+      - ${DBTEST_PORT}:${DBTEST_PORT_IN}
+    volumes:
+      - ${DBTEST_VOLUME_PATH}:/opt/lammp/bin

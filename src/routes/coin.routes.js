@@ -14,7 +14,7 @@ module.exports = function ({ CoinController }) {
 
   router.post(
     '/:coinId/user/:userId',
-    [AuthMiddleware, CreateCoinToUserDto, ValidationsMiddleware, OwnMiddleware],
+    [AuthMiddleware, CreateCoinToUserDto, OwnMiddleware, ValidationsMiddleware],
     CoinController.assignToUser,
   );
 

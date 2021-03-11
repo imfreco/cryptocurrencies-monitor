@@ -1,11 +1,12 @@
 const CoinGecko = require('coingecko-api');
 const coinGeckoClient = new CoinGecko();
 
-const getCoins = async (vs_currency, ids, price) => {
-  const options = {
-    vs_currency,
-  };
-  if (ids) options.ids = ids;
+const addToFilterOptions = (vs_currency, ids, price) => {
+  const filterOptions = {};
+
+  if (vs_currency) filterOptions.vs_currency = vs_currency;
+
+  if (ids && ids.length > 0) filterOptions.ids = ids;
 
   if (price) {
     let orderConstantPrice;
@@ -13,10 +14,16 @@ const getCoins = async (vs_currency, ids, price) => {
     if (price === 'desc') orderConstantPrice = CoinGecko.ORDER.PRICE_DESC;
     else orderConstantPrice = CoinGecko.ORDER.PRICE_ASC;
 
-    options.order = orderConstantPrice;
+    filterOptions.order = orderConstantPrice;
   }
 
-  return await coinGeckoClient.coins.markets(options);
+  return filterOptions;
+};
+
+const getCoins = async (vs_currency, ids, price) => {
+  const filterOptions = addToFilterOptions(vs_currency, ids, price);
+
+  return await coinGeckoClient.coins.markets(filterOptions);
 };
 
 const getCoin = async (coinId) => {
@@ -28,4 +35,4 @@ const getCoin = async (coinId) => {
   });
 };
 
-module.exports = { getCoins, getCoin };
+module.exports = { getCoins, getCoin, addToFilterOptions };

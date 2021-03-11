@@ -14,7 +14,7 @@ class CoinController {
   async assignToUser(req, res) {
     const { coinId, userId } = req.params;
     const coin = await _coinService.assignToUser(coinId, userId);
-    return res.send(coin);
+    return res.status(201).send(coin);
   }
 
   async getTopCoinsByUser(req, res) {

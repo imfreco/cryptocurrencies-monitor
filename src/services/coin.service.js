@@ -70,6 +70,8 @@ class CoinService extends BaseService {
     if (existsUser) {
       let coinsByUser = await _coinRepository.getCoinsByUser(userId);
 
+      if (coinsByUser.length === 0) return [];
+
       coinsByUser = coinsByUser.map(({ dataValues: { id } }) => id);
 
       const vsCurrency = VSCurrencyTypes.find((type) => type.coin === coin);

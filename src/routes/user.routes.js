@@ -19,7 +19,7 @@ module.exports = function ({ UserController, CoinController }) {
 
   router.get(
     '/:userId/coins/top',
-    [AuthMiddleware, ReadTopCoinDto, ValidationsMiddleware, OwnMiddleware],
+    [AuthMiddleware, ReadTopCoinDto, OwnMiddleware, ValidationsMiddleware],
     CoinController.getTopCoinsByUser,
   );
 
