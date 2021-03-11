@@ -6,11 +6,12 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "start:dev": "npm-run-all db:migrate dev",
-    "start:test": "cross-env NODE_ENV=test npm-run-all db:migrate db:seed:gen test:jest",
-    "db:seed:gen": "sequelize-cli db:seed:all",
-    "db:migrate": "sequelize-cli db:migrate:undo:all && sequelize-cli db:migrate",
-    "test:jest": "jest --verbose",
+    "start:dev": "npm-run-all db:migrate:run dev",
+    "start:test": "cross-env NODE_ENV=test npm-run-all db:migrate:revert db:migrate:run db:seed:run test:jest",
+    "db:seed:run": "sequelize-cli db:seed:all",
+    "db:migrate:run": "sequelize-cli db:migrate",
+    "db:migrate:revert": "sequelize-cli db:migrate:undo:all",
+    "test:jest": "jest --verbose --silent",
     "test:coverage": "jest --coverage"
   },
   "repository": {
