@@ -2,6 +2,7 @@ const request = require('supertest');
 
 const { UserSeeds } = require('../../../src/common');
 const container = require('../../../src/startup/container');
+const db = container.resolve('db');
 const server = container.resolve('server');
 const app = server.getApp();
 
@@ -46,5 +47,9 @@ describe('Pruebas de integración en el módulo de autenticación', () => {
       status: expect.any(Number),
       message: expect.any(Object),
     });
+  });
+
+  afterAll(async () => {
+    await db.sequelize.close();
   });
 });

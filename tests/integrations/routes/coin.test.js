@@ -2,24 +2,25 @@ const request = require('supertest');
 
 const { UserSeeds } = require('../../../src/common');
 const container = require('../../../src/startup/container');
+const db = container.resolve('db');
 const server = container.resolve('server');
 const app = server.getApp();
 
 describe('Pruebas de integración en el módulo de criptomonedas', () => {
   const baseUrl = '/v1/api';
 
+  const { username, password } = UserSeeds[0];
+  let id_token = null;
+
+  beforeAll(async () => {
+    const res = await request(app)
+      .post(`${baseUrl}/auth/signin`)
+      .send({ username, password });
+
+    id_token = res.body.id_token;
+  });
+
   describe('Pruebas al endpoint de consulta de criptomonedas', () => {
-    const { username, password } = UserSeeds[0];
-    let id_token = null;
-
-    beforeAll(async () => {
-      const res = await request(app)
-        .post(`${baseUrl}/auth/signin`)
-        .send({ username, password });
-
-      id_token = res.body.id_token;
-    });
-
     test('Debe retornar error de autenticación', async () => {
       const res = await request(app).get(`${baseUrl}/coins`);
 
@@ -53,17 +54,6 @@ describe('Pruebas de integración en el módulo de criptomonedas', () => {
   });
 
   describe('Pruebas al endpoint de asignación de criptomoneda a usuario', () => {
-    const { username, password } = UserSeeds[0];
-    let id_token = null;
-
-    beforeAll(async () => {
-      const res = await request(app)
-        .post(`${baseUrl}/auth/signin`)
-        .send({ username, password });
-
-      id_token = res.body.id_token;
-    });
-
     test('Debe retornar error de autenticación al tratar de asignar monedas', async () => {
       const coinId = 'bitcoin';
       const userId = 1;
@@ -118,5 +108,9 @@ describe('Pruebas de integración en el módulo de criptomonedas', () => {
       expect(res.statusCode).toBe(201);
       expect(res.body).toEqual(expect.any(Object));
     });
+  });
+
+  afterAll(async () => {
+    await db.sequelize.close();
   });
 });
