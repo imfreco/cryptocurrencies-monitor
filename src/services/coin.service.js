@@ -2,7 +2,7 @@ const BaseService = require('./base.service');
 const { VSCurrencyTypes } = require('../common');
 const { ErrorHelper } = require('../helpers');
 const { CryptoProvider } = require('../providers');
-const { getSomeProperties } = require('../utils/objects.util');
+const { ObjectsUtil } = require('../utils/');
 
 let _userService = null,
   _coinRepository = null;
@@ -26,7 +26,9 @@ class CoinService extends BaseService {
     const vsCurrency = VSCurrencyTypes.find((type) => type.coin === coin);
     const { data: coins } = await CryptoProvider.getCoins(vsCurrency.vs);
 
-    return coins.map((coin) => getSomeProperties(propsRequired, coin));
+    return coins.map((coin) =>
+      ObjectsUtil.getSomeProperties(propsRequired, coin),
+    );
   }
 
   async assignToUser(coinId, userId) {
@@ -82,7 +84,9 @@ class CoinService extends BaseService {
       );
 
       coins = coins.slice(0, limit);
-      return coins.map((coin) => getSomeProperties(propsRequired, coin));
+      return coins.map((coin) =>
+        ObjectsUtil.getSomeProperties(propsRequired, coin),
+      );
     }
   }
 }
