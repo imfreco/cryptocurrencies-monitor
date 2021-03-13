@@ -9,7 +9,7 @@ services:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_DB: ${DB_NAME}
     ports:
-      - ${DB_PORT}:${DB_PORT_IN}
+      - ${DB_PORT}:5432
     volumes:
       - ${DB_VOLUME_PATH}:/var/lib/postgresql/data
   mysql:
@@ -22,6 +22,6 @@ services:
       MYSQL_PASSWORD: ${DBTEST_PASS}
       MYSQL_DATABASE: ${DBTEST_NAME}
     ports:
-      - ${DBTEST_PORT}:${DBTEST_PORT_IN}
+      - ${DBTEST_PORT}:3306
     volumes:
       - ${DBTEST_VOLUME_PATH}:/opt/lammp/bin
