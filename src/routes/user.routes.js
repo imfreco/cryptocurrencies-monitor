@@ -8,7 +8,8 @@ const {
   OwnMiddleware,
 } = require('../middlewares');
 
-module.exports = function ({ UserController, CoinController }) {
+module.exports = function ({ UserController, CoinController, RedisClient }) {
+  const _redisClient = RedisClient;
   const router = Router();
 
   router.post(
@@ -19,7 +20,20 @@ module.exports = function ({ UserController, CoinController }) {
 
   router.get(
     '/:userId/coins/top',
-    [AuthMiddleware, ReadTopCoinDto, OwnMiddleware, ValidationsMiddleware],
+    [
+      AuthMiddleware,
+      ReadTopCoinDto,
+      OwnMiddleware,
+      ValidationsMiddleware,
+      (req, res, next) => {
+        _redisClient.get('topCoins', (err, data) => {
+          if (err) throw err;
+
+          if (data !== null) res.send(JSON.parse(data));
+          else next();
+        });
+      },
+    ],
     CoinController.getTopCoinsByUser,
   );
 

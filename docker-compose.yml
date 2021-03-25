@@ -25,3 +25,11 @@ services:
       - ${DBTEST_PORT}:3306
     volumes:
       - ${DBTEST_VOLUME_PATH}:/opt/lammp/bin
+  redis:
+        image: redis
+        restart: always
+        ports:
+            - 6379:6379
+        volumes:
+            - ./config/redis.conf:/redis.conf
+        command: [ "redis-server", "/redis.conf" ]

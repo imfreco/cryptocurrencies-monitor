@@ -1,8 +1,10 @@
-let _coinService = null;
+let _coinService = null,
+  _redisClient = null;
 
 class CoinController {
-  constructor({ CoinService }) {
+  constructor({ CoinService, RedisClient }) {
     _coinService = CoinService;
+    _redisClient = RedisClient;
   }
 
   async getAll(req, res) {
@@ -27,6 +29,9 @@ class CoinController {
       limit,
       price,
     );
+
+    _redisClient.setex('topCoins', 5, JSON.stringify(topCoins));
+
     return res.send(topCoins);
   }
 }

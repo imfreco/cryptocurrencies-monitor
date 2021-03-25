@@ -3,6 +3,7 @@ if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 module.exports = {
   PORT: process.env.PORT,
   JWT_SECRET: process.env.JWT_SECRET,
+  REDIS_PORT: process.env.REDIS_PORT,
   development: {
     username: process.env.DB_USER,
     password: process.env.DB_PASS,

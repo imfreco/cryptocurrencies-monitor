@@ -1,8 +1,9 @@
+const compression = require('compression');
+const cors = require('cors');
 const express = require('express');
 require('express-async-errors');
-const cors = require('cors');
 const helmet = require('helmet');
-const compression = require('compression');
+
 const { ErrorMiddleware, NotFoundMiddleware } = require('../middlewares');
 
 module.exports = function ({ UserRoutes, CoinRoutes, AuthRoutes }) {

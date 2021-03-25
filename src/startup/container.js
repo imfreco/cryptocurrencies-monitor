@@ -28,6 +28,9 @@ const Routes = require('../routes');
 //db
 const db = require('../models');
 
+//caching
+const { RedisClient } = require('../caching');
+
 const container = createContainer();
 
 container
@@ -36,6 +39,7 @@ container
     router: asFunction(Routes).singleton(),
     config: asValue(config),
     db: asValue(db),
+    RedisClient: asValue(RedisClient),
   })
   .register({
     UserRepository: asClass(UserRepository).singleton(),
