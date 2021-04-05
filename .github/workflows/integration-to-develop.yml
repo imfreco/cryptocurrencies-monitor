@@ -1,0 +1,48 @@
+name: Continuous integration with Node.js
+
+on:
+  push:
+    branches: [develop]
+  pull_request:
+    branches: [develop]
+
+jobs:
+  ci_to_develop:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x, 14.x]
+
+    env:
+      PORT: ${{ secrets.PORT }}
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
+
+      DB_HOST: ${{ secrets.DB_HOST }}
+      DB_PORT: ${{ secrets.DB_PORT }}
+      DB_USER: ${{ secrets.DB_USER }}
+      DB_PASS: ${{ secrets.DB_PASS }}
+      DB_NAME: ${{ secrets.DB_NAME }}
+      DB_VOLUME_PATH: ${{ secrets.DB_VOLUME_PATH }}
+
+      DBTEST_HOST: ${{ secrets.DBTEST_HOST }}
+      DBTEST_PORT: ${{ secrets.DBTEST_PORT }}
+      DBTEST_USER: ${{ secrets.DBTEST_USER }}
+      DBTEST_PASS: ${{ secrets.DBTEST_PASS }}
+      DBTEST_NAME: ${{ secrets.DBTEST_NAME }}
+      DBTEST_VOLUME_PATH: ${{ secrets.DBTEST_VOLUME_PATH }}
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install dependencies
+        run: npm ci
+      - name: Compose DB containers
+        run: docker-compose up -d
+      - name: Execute tests
+        run: npm run start:test
+      - name: Execute application
+        run: npm run start:dev
