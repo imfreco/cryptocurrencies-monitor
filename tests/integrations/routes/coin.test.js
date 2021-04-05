@@ -13,6 +13,8 @@ describe('Pruebas de integración en el módulo de criptomonedas', () => {
   let id_token = null;
 
   beforeAll(async () => {
+    await db.sequelize.authenticate();
+
     const res = await request(app)
       .post(`${baseUrl}/auth/signin`)
       .send({ username, password });

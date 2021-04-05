@@ -9,6 +9,10 @@ const app = server.getApp();
 describe('Pruebas de integración en el módulo de autenticación', () => {
   const baseUrl = '/v1/api';
 
+  beforeAll(async () => {
+    await db.sequelize.authenticate();
+  });
+
   test('Debe retornar un token de identificación y uno de refresco con las credenciales correctas', async () => {
     const { username, password } = UserSeeds[0];
 

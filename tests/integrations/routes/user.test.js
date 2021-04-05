@@ -9,6 +9,10 @@ const app = server.getApp();
 describe('Pruebas de integración en el módulo de usuarios', () => {
   const baseUrl = '/v1/api';
 
+  beforeAll(async () => {
+    await db.sequelize.authenticate();
+  });
+
   describe('Pruebas al endpoint de consulta top N de criptomonedas', () => {
     const { username, password } = UserSeeds[0];
     let id_token = null;
